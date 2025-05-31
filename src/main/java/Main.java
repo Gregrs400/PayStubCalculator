@@ -1,3 +1,4 @@
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class Main
@@ -35,6 +36,23 @@ public class Main
         grossPay = keyboard.nextDouble();
 
         System.out.printf("$%.2f", grossPay);
+
+        // add tax brackets for each year in 2D Arrays
+
+        HashMap<String, double[][]> taxBrackets = new HashMap<>();
+
+        double[][] taxBracket_2022 = new double[][] {
+                {0, 4350, 0, 0, 0},
+                {4350, 14625, 0, 0.1, 4350},
+                {14625, 46125, 1027.50, 0.12, 14625},
+                {46125, 93425, 4807.50, 0.22, 46125},
+                {93425, 174400, 15213.50, 0.24, 93425},
+                {174400, 220300, 34647.50, 0.32, 174400},
+                {220300, 544250, 49335.50, 0.35, 220300},
+                {544250, -1, 162718, 0.37, 544250}
+        };
+
+        taxBrackets.put("2022", taxBracket_2022);
 
         // create csv of pay stub
     }
