@@ -18,17 +18,23 @@ public class Main
 
         payPeriodStartDate = keyboard.nextLine();
 
+        System.out.println(payPeriodStartDate);
+
             // pay period end date (mm/dd/yyyy)
 
         System.out.print("Enter pay period end date (mm/dd/yyyy): ");
 
         payPeriodEndDate = keyboard.nextLine();
 
+        System.out.println(payPeriodEndDate);
+
             // gross pay
 
         System.out.print("Enter gross pay: ");
 
         grossPay = keyboard.nextDouble();
+
+        System.out.printf("$%.2f", grossPay);
 
         // create csv of pay stub
     }
