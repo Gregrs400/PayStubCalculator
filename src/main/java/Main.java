@@ -93,6 +93,18 @@ public class Main
 
         taxBrackets.put("2025", taxBracket_2025);
 
+        double adjustedAnnualWage = calcAdjustedAnnualWage(grossPay, 24);
+
         // create csv of pay stub
+    }
+
+    public static double calcAdjustedAnnualWage(double grossPay, int numOfPayPeriodsPerYear)
+    {
+
+        if ((grossPay*numOfPayPeriodsPerYear)-8600 < 0)
+            return 0;
+        else
+            return (grossPay * numOfPayPeriodsPerYear)-8600;
+
     }
 }
