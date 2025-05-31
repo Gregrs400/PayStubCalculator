@@ -1,0 +1,22 @@
+# Maven target directory
+/target/
+
+# IDE-specific files (for IntelliJ IDEA)
+.idea/
+*.iml
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Maven wrapper files (optional: only ignore if you don’t want to version them)
+# .mvn/
+# mvnw
+# mvnw.cmd
+
+# Temporary files
+*.class
+*.swp
