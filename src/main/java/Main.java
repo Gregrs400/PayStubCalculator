@@ -113,10 +113,6 @@ public class Main
     {
 
         int columnNum = 0;
-        double columnA = 0;
-        double columnC = 0;
-        double columnDPercentage = 0;
-
 
         if (adjustedAnnualWage > taxBracket[7][0])
         {
@@ -139,9 +135,9 @@ public class Main
 
         }
 
-        columnA = taxBracket[columnNum][0];
-        columnC = taxBracket[columnNum][2];
-        columnDPercentage = taxBracket[columnNum][3];
+        double columnA = taxBracket[columnNum][0];
+        double columnC = taxBracket[columnNum][2];
+        double columnDPercentage = taxBracket[columnNum][3];
 
         return (((adjustedAnnualWage-columnA)*columnDPercentage)+columnC)/numOfPayPeriodsPerYear;
 
