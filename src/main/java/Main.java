@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -63,7 +64,7 @@ public class Main
 
         System.out.printf("Tentative Withholding Amount: $%.2f\n",tentativeWithholdingAmount);
 
-        generatePayStub(grossPay, tentativeWithholdingAmount, familyLeaveRates.get(payPeriodYear));
+        generatePayStubCSV(grossPay, tentativeWithholdingAmount, familyLeaveRates.get(payPeriodYear));
         // create csv of pay stub
     }
 
@@ -207,12 +208,25 @@ public class Main
 
     }
 
-    public void generatePayStubCSV(double grossPay, double tentativeWithholdingAmount, double familyLeaveRate)
+    public static void generatePayStubCSV(double grossPay, double tentativeWithholdingAmount, double familyLeaveRate)
     {
 
         HashMap<String,Double> payStub = generatePayStub(grossPay, tentativeWithholdingAmount, familyLeaveRate);
 
         File payStubCSV = createOrAccessFile("PayStub.csv");
+
+        String fileContents = "";
+
+        fileContents = String.format(fileContents + "Gross Pay" + ",$%.2f\n", grossPay);
+        fileContents = String.format(fileContents + "Federal Tax" + ",$%.2f\n", payStub.get("Federal Tax"));
+        fileContents = fileContents + "FICA" + "," + payStub.get("FICA") + "\n";
+        fileContents = fileContents + "Medicare" + "," + payStub.get("Medicare") + "\n";
+        fileContents = fileContents + "SUI" + "," + payStub.get("SUI") + "\n";
+        fileContents = fileContents + "Family Leave Insurance" + "," + payStub.get("Family Leave Insurance") + "\n";
+        fileContents = fileContents + "PA State Tax" + "," + payStub.get("PA State Tax") + "\n";
+        fileContents = fileContents + "Net Pay" + "," + payStub.get("Net Pay");
+
+        writeToFile(payStubCSV, fileContents);
 
     }
 
@@ -241,6 +255,21 @@ public class Main
 
             return null;
 
+        }
+
+    }
+
+    public static void writeToFile(File file, String text)
+    {
+
+        try {
+            FileWriter writer = new FileWriter(file, true);
+            writer.write(text);
+            writer.close();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
         }
 
     }
