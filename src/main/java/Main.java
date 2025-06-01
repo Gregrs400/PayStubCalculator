@@ -107,4 +107,43 @@ public class Main
             return (grossPay * numOfPayPeriodsPerYear)-8600;
 
     }
+
+    public static double calcTentativeWithholdingAmount(double[][] taxBracket, double adjustedAnnualWage,
+                                                        int numOfPayPeriodsPerYear)
+    {
+
+        int columnNum = 0;
+        double columnA = 0;
+        double columnC = 0;
+        double columnDPercentage = 0;
+
+
+        if (adjustedAnnualWage > taxBracket[7][0])
+        {
+
+            columnNum = 7;
+
+        }
+        else
+        {
+
+            while (adjustedAnnualWage >= taxBracket[columnNum][0])
+            {
+
+                if (adjustedAnnualWage < taxBracket[columnNum][1])
+                    break;
+                else
+                    columnNum++;
+
+            }
+
+        }
+
+        columnA = taxBracket[columnNum][0];
+        columnC = taxBracket[columnNum][2];
+        columnDPercentage = taxBracket[columnNum][3];
+
+        return (((adjustedAnnualWage-columnA)*columnDPercentage)+columnC)/numOfPayPeriodsPerYear;
+
+    }
 }
