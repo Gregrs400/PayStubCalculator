@@ -21,8 +21,6 @@ public class Main
 
             payPeriodStartDate = keyboard.nextLine();
 
-            System.out.println(payPeriodStartDate);
-
             payPeriodStartYear = payPeriodStartDate.split("/")[2];
 
             // pay period end date (mm/dd/yyyy)
@@ -30,8 +28,6 @@ public class Main
             System.out.print("Enter pay period end date (mm/dd/yyyy): ");
 
             payPeriodEndDate = keyboard.nextLine();
-
-            System.out.println(payPeriodEndDate);
 
             payPeriodEndYear = payPeriodEndDate.split("/")[2];
 
@@ -47,8 +43,6 @@ public class Main
         System.out.print("Enter gross pay: ");
 
         grossPay = keyboard.nextDouble();
-
-        System.out.printf("$%.2f\n", grossPay);
 
         // add tax brackets for each year in 2D Arrays
 
