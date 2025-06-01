@@ -169,20 +169,29 @@ public class Main
 
     }
 
-    public static void generatePayStub(double grossPay, double tentativeWithholdingAmount, double familyLeaveRate)
+    public static HashMap<String,Double> generatePayStub(double grossPay, double tentativeWithholdingAmount, double familyLeaveRate)
     {
+
+        HashMap<String,Double> payStub = new HashMap<>();
+        payStub.put("Federal Tax", tentativeWithholdingAmount);
 
         System.out.printf("Gross Pay: $%.2f\n", grossPay);
 
         double fica = (double) Math.round((grossPay*0.062)*100)/100;
+        payStub.put("FICA", fica);
         double medicare = (double) Math.round((grossPay*0.0145)*100)/100;
+        payStub.put("Medicare", medicare);
         double sui = (double) Math.round((grossPay*0.00425)*100)/100;
+        payStub.put("SUI", sui);
         double familyLeaveInsurance = (double) Math.round((grossPay*familyLeaveRate)*100)/100;
+        payStub.put("Family Leave Insurance", familyLeaveInsurance);
         double paStateTax = (double) Math.round((grossPay*0.0307)*100)/100;
+        payStub.put("PA State Tax", paStateTax);
 
         double totalDeductions = tentativeWithholdingAmount + fica + medicare + sui + familyLeaveInsurance + paStateTax;
 
         double netPay = grossPay - totalDeductions;
+        payStub.put("Net Pay", netPay);
 
         System.out.printf("Federal Tax: $%.2f\n", tentativeWithholdingAmount);
         System.out.printf("FICA: $%.2f\n", fica);
@@ -192,5 +201,9 @@ public class Main
         System.out.printf("PA State Tax: $%.2f\n", paStateTax);
         System.out.printf("Net Pay: $%.2f\n", netPay);
 
+        return payStub;
+
     }
+
+
 }
