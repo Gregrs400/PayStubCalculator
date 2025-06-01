@@ -1,3 +1,5 @@
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -202,6 +204,44 @@ public class Main
         System.out.printf("Net Pay: $%.2f\n", netPay);
 
         return payStub;
+
+    }
+
+    public void generatePayStubCSV(double grossPay, double tentativeWithholdingAmount, double familyLeaveRate)
+    {
+
+        HashMap<String,Double> payStub = generatePayStub(grossPay, tentativeWithholdingAmount, familyLeaveRate);
+
+        File payStubCSV = createOrAccessFile("PayStub.csv");
+
+    }
+
+    public static File createOrAccessFile(String filePathAndName) {
+
+        try {
+
+            File file = new File(filePathAndName);
+
+            if (file.createNewFile()) {
+
+                System.out.println("file created");
+
+            } else {
+
+                System.out.println("file already created");
+
+            }
+
+            return file;
+
+        } catch (IOException e) {
+
+            System.out.println("IOException occurred");
+            e.printStackTrace();
+
+            return null;
+
+        }
 
     }
 
