@@ -100,6 +100,12 @@ public class Main
 
         taxBrackets.put("2025", taxBracket_2025);
 
+        HashMap<String, Double> familyLeaveRates = new HashMap<>();
+        familyLeaveRates.put("2022", 0.0014);
+        familyLeaveRates.put("2023", 0.0006);
+        familyLeaveRates.put("2024",0.0009);
+        familyLeaveRates.put("2025", 0.0033);
+
         double adjustedAnnualWage = calcAdjustedAnnualWage(grossPay, 24);
 
         double tentativeWithholdingAmount = calcTentativeWithholdingAmount(taxBrackets.get(payPeriodYear), adjustedAnnualWage,
