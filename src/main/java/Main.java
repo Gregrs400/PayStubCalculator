@@ -113,6 +113,7 @@ public class Main
 
         System.out.printf("Tentative Withholding Amount: $%.2f\n",tentativeWithholdingAmount);
 
+        generatePayStub(grossPay, tentativeWithholdingAmount, familyLeaveRates.get(payPeriodYear));
         // create csv of pay stub
     }
 
@@ -158,6 +159,31 @@ public class Main
         double columnDPercentage = taxBracket[columnNum][3];
 
         return (((adjustedAnnualWage-columnA)*columnDPercentage)+columnC)/numOfPayPeriodsPerYear;
+
+    }
+
+    public static void generatePayStub(double grossPay, double tentativeWithholdingAmount, double familyLeaveRate)
+    {
+
+        System.out.printf("Gross Pay: $%.2f\n", grossPay);
+
+        double fica = (double) Math.round((grossPay*0.062)*100)/100;
+        double medicare = (double) Math.round((grossPay*0.0145)*100)/100;
+        double sui = (double) Math.round((grossPay*0.00425)*100)/100;
+        double familyLeaveInsurance = (double) Math.round((grossPay*familyLeaveRate)*100)/100;
+        double paStateTax = (double) Math.round((grossPay*0.0307)*100)/100;
+
+        double totalDeductions = tentativeWithholdingAmount + fica + medicare + sui + familyLeaveInsurance + paStateTax;
+
+        double netPay = grossPay - totalDeductions;
+
+        System.out.printf("Federal Tax: $%.2f\n", tentativeWithholdingAmount);
+        System.out.printf("FICA: $%.2f\n", fica);
+        System.out.printf("Medicare: $%.2f\n", medicare);
+        System.out.printf("SUI: $%.2f\n", sui);
+        System.out.printf("Family Leave Insurance: $%.2f\n", familyLeaveInsurance);
+        System.out.printf("PA State Tax: $%.2f\n", paStateTax);
+        System.out.printf("Net Pay: $%.2f\n", netPay);
 
     }
 }
