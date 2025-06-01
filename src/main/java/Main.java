@@ -95,6 +95,11 @@ public class Main
 
         double adjustedAnnualWage = calcAdjustedAnnualWage(grossPay, 24);
 
+        double tentativeWithholdingAmount = calcTentativeWithholdingAmount(taxBrackets.get("2025"), adjustedAnnualWage,
+                24);
+
+        System.out.println("Tentative Withholding Amount: " + tentativeWithholdingAmount);
+
         // create csv of pay stub
     }
 
