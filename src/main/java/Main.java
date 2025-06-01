@@ -8,26 +8,39 @@ public class Main
 
         Scanner keyboard = new Scanner(System.in);
 
-        String payPeriodStartDate, payPeriodEndDate;
+        String payPeriodStartDate, payPeriodEndDate, payPeriodStartYear, payPeriodEndYear, payPeriodYear;
         double grossPay;
 
         // user input
 
             // pay period start date (mm/dd/yyyy)
 
-        System.out.print("Enter pay period start date (mm/dd/yyyy): ");
+        do {
 
-        payPeriodStartDate = keyboard.nextLine();
+            System.out.print("Enter pay period start date (mm/dd/yyyy): ");
 
-        System.out.println(payPeriodStartDate);
+            payPeriodStartDate = keyboard.nextLine();
+
+            System.out.println(payPeriodStartDate);
+
+            payPeriodStartYear = payPeriodStartDate.split("/")[2];
 
             // pay period end date (mm/dd/yyyy)
 
-        System.out.print("Enter pay period end date (mm/dd/yyyy): ");
+            System.out.print("Enter pay period end date (mm/dd/yyyy): ");
 
-        payPeriodEndDate = keyboard.nextLine();
+            payPeriodEndDate = keyboard.nextLine();
 
-        System.out.println(payPeriodEndDate);
+            System.out.println(payPeriodEndDate);
+
+            payPeriodEndYear = payPeriodEndDate.split("/")[2];
+
+            if (!payPeriodStartYear.equals(payPeriodEndYear))
+                System.out.println("Error. Pay period start and end years must match.");
+
+        }while(!payPeriodStartYear.equals(payPeriodEndYear));
+
+        payPeriodYear = payPeriodStartYear;
 
             // gross pay
 
@@ -35,7 +48,7 @@ public class Main
 
         grossPay = keyboard.nextDouble();
 
-        System.out.printf("$%.2f", grossPay);
+        System.out.printf("$%.2f\n", grossPay);
 
         // add tax brackets for each year in 2D Arrays
 
@@ -95,10 +108,10 @@ public class Main
 
         double adjustedAnnualWage = calcAdjustedAnnualWage(grossPay, 24);
 
-        double tentativeWithholdingAmount = calcTentativeWithholdingAmount(taxBrackets.get("2025"), adjustedAnnualWage,
+        double tentativeWithholdingAmount = calcTentativeWithholdingAmount(taxBrackets.get(payPeriodYear), adjustedAnnualWage,
                 24);
 
-        System.out.println("Tentative Withholding Amount: " + tentativeWithholdingAmount);
+        System.out.printf("Tentative Withholding Amount: $%.2f\n",tentativeWithholdingAmount);
 
         // create csv of pay stub
     }
