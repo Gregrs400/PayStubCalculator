@@ -46,6 +46,27 @@ public class Main
 
         // add tax brackets for each year in 2D Arrays
 
+        HashMap<String, double[][]> taxBrackets = getTaxBrackets();
+
+        HashMap<String, Double> familyLeaveRates = new HashMap<>();
+        familyLeaveRates.put("2022", 0.0014);
+        familyLeaveRates.put("2023", 0.0006);
+        familyLeaveRates.put("2024",0.0009);
+        familyLeaveRates.put("2025", 0.0033);
+
+        double adjustedAnnualWage = calcAdjustedAnnualWage(grossPay, 24);
+
+        double tentativeWithholdingAmount = calcTentativeWithholdingAmount(taxBrackets.get(payPeriodYear), adjustedAnnualWage,
+                24);
+
+        System.out.printf("Tentative Withholding Amount: $%.2f\n",tentativeWithholdingAmount);
+
+        generatePayStub(grossPay, tentativeWithholdingAmount, familyLeaveRates.get(payPeriodYear));
+        // create csv of pay stub
+    }
+
+    private static HashMap<String, double[][]> getTaxBrackets() {
+
         HashMap<String, double[][]> taxBrackets = new HashMap<>();
 
         double[][] taxBracket_2022 = new double[][] {
@@ -99,22 +120,8 @@ public class Main
         };
 
         taxBrackets.put("2025", taxBracket_2025);
+        return taxBrackets;
 
-        HashMap<String, Double> familyLeaveRates = new HashMap<>();
-        familyLeaveRates.put("2022", 0.0014);
-        familyLeaveRates.put("2023", 0.0006);
-        familyLeaveRates.put("2024",0.0009);
-        familyLeaveRates.put("2025", 0.0033);
-
-        double adjustedAnnualWage = calcAdjustedAnnualWage(grossPay, 24);
-
-        double tentativeWithholdingAmount = calcTentativeWithholdingAmount(taxBrackets.get(payPeriodYear), adjustedAnnualWage,
-                24);
-
-        System.out.printf("Tentative Withholding Amount: $%.2f\n",tentativeWithholdingAmount);
-
-        generatePayStub(grossPay, tentativeWithholdingAmount, familyLeaveRates.get(payPeriodYear));
-        // create csv of pay stub
     }
 
     public static double calcAdjustedAnnualWage(double grossPay, int numOfPayPeriodsPerYear)
